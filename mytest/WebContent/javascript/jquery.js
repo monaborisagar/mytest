@@ -52,11 +52,11 @@ function validate() {
 		if(s==""||s==null)
 		{
 			alert("not null salary");
-			return false;
+		
 		}
-		else if(event.keyCode < 48 || event.keyCode > 57)
+		else if(s < 48 || s > 57)
 			{
-			alert("Only Number allowed Max length = 9");
+			alert("number should not exceed range between 48 to 57");
 			   event.returnValue = false;
 			}
 

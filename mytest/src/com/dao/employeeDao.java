@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,7 +28,8 @@ public class employeeDao {
 	
 	  public static int save(employee e){  
 	        int status=0;  
-	        
+	        Statement stmt = null;
+	       
 	        try{  
 	        	System.out.println("raj");
 	        	System.out.println("name ="+e.getName()+"date = "+e.getBirthdate2()+"add ="+e.getAddress()+"gender ="+e.getGender()+"salary ="+e.getSalary());
@@ -36,17 +38,25 @@ public class employeeDao {
 	        	
       java.sql.Date sqlDate = new java.sql.Date(e.getBirthdate().getTime());
 	        	Connection con=utility.getConnection();
+	        	stmt = con.createStatement();
 	            System.out.println("test1");
-	           PreparedStatement ps=con.prepareStatement(  
-	                         "insert into Employee15(name,address,gender,salary,birthDate) values (?,?,?,?,?)");  
-	            ps.setString(1,e.getName());  
-	            ps.setString(2,e.getAddress());  
-	            ps.setByte(3,e.getGender());  
-	            ps.setDouble(4, e.getSalary());
-	            ps.setDate(5, sqlDate);
+			/*
+			 * PreparedStatement ps=con.prepareStatement(
+			 * "insert into Employee15(name,address,gender,salary,birthDate) values ("+e.
+			 * getName()+
+			 * ",\"+e.getAddress()+\",\"+e.getGender()+\",\"+e.getSalary()+\",\"+sqlDate+\")"
+			 * );
+			 */
+	           
+	         String query=  "insert into Employee15(name,address,gender,salary,birthDate) values ('"+e.getName()+"','"+e.getAddress()+"','"+e.getGender()+"','"+e.getSalary()+"','"+sqlDate+"')";
+			/*('Harry Potter', '"+msSqlDateFormat.format(date)+"', 'drama')
+			 * ps.setString(1,e.getName()); ps.setString(2,e.getAddress());
+			 * ps.setByte(3,e.getGender()); ps.setDouble(4, e.getSalary()); ps.setDate(5,
+			 * sqlDate);
+			 */
 	            System.out.println("test1");
-	            status=ps.executeUpdate();  
-	              
+	           // status=ps.executeUpdate();  
+	            status = stmt.executeUpdate(query);
 	            con.close();  
 	        }catch(Exception ex){ex.printStackTrace();}  
 	          

@@ -44,7 +44,7 @@ public class ActionController extends HttpServlet {
 			response.setContentType("text/html");
 			PrintWriter pw=response.getWriter();
 			pw.println("<script type=\"text/javascript\">");
-			pw.println("alert('Invalid Username or Password');");
+			//pw.println("alert('Invalid Username or Password');");
 			pw.println("</script>");
 			
 			String name = request.getParameter("name");
